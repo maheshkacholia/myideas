@@ -1,0 +1,59 @@
+#properties file aloway gives constant value which you don't want to hard code in your application . 
+The idea is about providing dynanic value by some scripting support or java code call within property file so that same processing is not require to be done at program 
+level
+use case 
+we need to create multiple properties file for each environment dev,test,qa,prod etc . why not one and that property file returns value automatically based on env 
+ this way we don't have to manange multiple properties where only couple of properties changes based on env 
+ 
+ use case 2
+ we have a common utility where based on consumer we want to span our thread accoringly . like some premium client should have more thread for processing and 
+ non premium less . 
+ 
+ based on country or any other parameter  we want to set time 
+ 
+ here is tradition approach . 
+ 
+ 
+ appp_dev.proprties
+ app.url=http://dev.com
+ app.name=myapp
+ 
+ appp_qa.proprties
+ app.url=http://qa.com
+ app.name=myapp
+ 
+ trad code 
+ 
+ String env = System.getEnv();
+ 
+ Properties p = new Properties ();
+ if(env=dev) {
+ p.load(app_dev.properties);
+ }
+ if(env=qa){
+ p.load(app_qa.properties);
+ }
+ 
+ dynamic properties 
+ 
+ app.properties 
+ app.name=myapp
+ String env = System.getEnv();
+ if(env=dev){
+ app.url=http://dev.com
+ }
+ if(env=qa){
+ app.url=http://qa.com
+ }
+ 
+ code
+  Properties p = new Properties ();
+  p.load(DynamicProperty.load(app.properties );
+  
+  this will keep all properties related if else code into property itself and will reduce multiple properties or code where based on properties value
+  we need to programitiacally change value 
+  
+  in this example if new env need to added we need to make chnage in property file not in code 
+ 
+ 
+ 
